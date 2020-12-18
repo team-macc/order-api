@@ -23,21 +23,7 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router{
     findById = (req, resp, next)=>{
         this.model.findById(req.params.id).then(this.render(resp,next))
         .catch(next)
-    }
-
-    findByEmail = (req, resp, next)=>{
-        this.model.findOne({userEmail:req.params.userEmail}).exec()
-        .then(result=>{
-            if(result){
-                return result
-            }else{
-                throw new NotFoundError('Documento não encontrado')
-            }
-
-        }).then(this.render(resp,next))
-        .catch(next)
-        
-    }
+    }    
 
     save = (req, resp, next)=>{
         let document = new this.model(req.body)

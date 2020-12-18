@@ -24,18 +24,6 @@ class ModelRouter extends router_1.Router {
             this.model.findById(req.params.id).then(this.render(resp, next))
                 .catch(next);
         };
-        this.findByEmail = (req, resp, next) => {
-            this.model.findOne({ userEmail: req.params.userEmail }).exec()
-                .then(result => {
-                if (result) {
-                    return result;
-                }
-                else {
-                    throw new restify_errors_1.NotFoundError('Documento não encontrado');
-                }
-            }).then(this.render(resp, next))
-                .catch(next);
-        };
         this.save = (req, resp, next) => {
             let document = new this.model(req.body);
             document.save().then(this.render(resp, next))
