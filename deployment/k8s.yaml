@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: order
+  labels:
+    app: order
+spec:
+  selector:
+    app: order
+  ports:
+    - port: 3001
+      name: http
+  type: NodePort
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: order
+spec:
+  selector:
+    matchLabels:
+      app: order
+  replicas: 1
+  template:
+    metadata:
+      annotations: 
+        sidecar.istio.io/inject: "true"      
+      labels:
+        app: order
+        version: v1
+    spec:
+      containers:
+      - name: order
+        image: samuelpereiradesouza/order:1
+        ports:
+        - containerPort: 3001
+      restartPolicy: Always
+---
