@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: order
+  name: order-api
   labels:
-    app: order
+    app: order-api
 spec:
   selector:
-    app: order
+    app: order-api
   ports:
     - port: 3001
       name: http
@@ -15,23 +15,23 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: order
+  name: order-api
 spec:
   selector:
     matchLabels:
-      app: order
+      app: order-api
   replicas: 1
   template:
     metadata:
       annotations: 
         sidecar.istio.io/inject: "true"      
       labels:
-        app: order
+        app: order-api
         version: v1
     spec:
       containers:
-      - name: order
-        image: samuelpereiradesouza/order:1
+      - name: order-api
+        image: samuelpereiradesouza/order-api:4
         ports:
         - containerPort: 3001
       restartPolicy: Always
