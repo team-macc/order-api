@@ -13,7 +13,7 @@ export class Server{
 
     initializeDb(): Promise<mongoose.Mongoose>{
         (<any>mongoose).Promise = global.Promise
-        return mongoose.connect(environment.db.url,environment.db.options)
+        return mongoose.connect(environment.db.url, {dbName: 'order-api', useNewUrlParser: true, useUnifiedTopology: true})
     }
 
     iniRoutes(routers: Router[]): Promise<any>{
