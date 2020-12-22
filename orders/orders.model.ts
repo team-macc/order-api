@@ -15,7 +15,10 @@ export interface Order extends mongoose.Document{
     userEmail: string,
     items: OrderItem[],
     date: Date,
-    status: string
+    status: string,
+    cep: string,
+    address: string,
+    instructions: string
 }
 
 const orderItemSchema = new mongoose.Schema(
@@ -60,6 +63,15 @@ const orderSchema = new mongoose.Schema(
             enum: ['Done','Waiting','Send'],
             require:true,
             default:'Waiting'
+        },
+        cep:{
+            type: String
+        },
+        address:{
+            type: String
+        },
+        instructions: {
+            type: String
         }
     }
 )
