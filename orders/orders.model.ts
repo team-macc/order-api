@@ -18,7 +18,8 @@ export interface Order extends mongoose.Document{
     status: string,
     cep: string,
     address: string,
-    instructions: string
+    instructions: string,
+    credcard: string
 }
 
 const orderItemSchema = new mongoose.Schema(
@@ -71,6 +72,9 @@ const orderSchema = new mongoose.Schema(
             type: String
         },
         instructions: {
+            type: String
+        },
+        credcard:{
             type: String
         }
     }
